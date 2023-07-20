@@ -23,7 +23,7 @@ export default class MongoConnection{
 				this.instance = mongoose.connection;
 
 			} else {
-				throw new Error("Missing environment variable MONGODB_URI");
+				throw new Error("Missing environment variable $MONGODB_URI.");
 			}
 		}
 

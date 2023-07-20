@@ -11,6 +11,7 @@ import { Bot } from "./bot"
 const log = debug("bot:index");
 
 async function main(): Promise<void>{
+
 	const browser = await startBrowser();
 	const investingScrapper = new InvestingScrapper(browser);
 	const connection = MongoConnection.getConnection();
@@ -19,13 +20,12 @@ async function main(): Promise<void>{
 	if(process.env.BOT_TOKEN){
 		bot = new Bot(process.env.BOT_TOKEN, {
 			telegram: {
-				apiRoot: "http://localhost:8888"
+				apiRoot: process.env.API_ROOT
 			}
 		})
 
 	} else {
-		console.error("No token ($BOT_TOKEN) provided.")
-		return process.exit(1);
+		throw new Error("Environment variable $BOT_TOKEN was not provided.");
 	}
 
 	connection.once("open", async () => {
@@ -46,7 +46,6 @@ async function main(): Promise<void>{
 
 		log("Starting monitory")
 		bot.startMonitoring(investingScrapper);
-
 	})
 
 }
@@ -55,5 +54,6 @@ main()
 	.then( () => {
 	})
 	.catch( (error) => {
-		console.error(error) 
+		console.error(error);
+		process.exit(1);
 	});
