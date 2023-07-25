@@ -12,7 +12,7 @@ MONGODB_URI="YOUR_MONGO_DB_URI"
 The following variables are optional:
 ``` bash
 DEBUG="telegraf:main bot:* investing-scrapper:main browser-factory:main" # default | adds debug info to the console
-API_ROOT="localhost:8888"  # if set, uses it as the API root for the bot
+API_ROOT="http://localhost:8888"  # if set, uses it as the API root for the bot
 ```
 
 Check [this link](https://core.telegram.org/bots/api) for more info on the API root.
